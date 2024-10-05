@@ -18,5 +18,9 @@ def matrix_convolution(matrix, max_pooling=True, convolution_size=2, step=1):
     return new_matrix
 
 
-
-
+def matrix_to_vector(matrix):
+    vector = []
+    for row in matrix:
+        for element in row:
+            vector.append(element)
+    return vector
