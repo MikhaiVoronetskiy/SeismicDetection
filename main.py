@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 
 
 
-def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_max=1.653729495509616e-07, timeframe=70000, sta_len=120, lta_len=1000,  threshold_on=4, threshold_off=1.5, y_step=1e-10):
+def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_max=1.653729495509616e-07, timeframe=1000, sta_len=120, lta_len=1000,  threshold_on=4, threshold_off=1.5, y_step=1e-10):
     """
     Load seismic data from a CSV file.
     Expects columns: 'time_abs(%Y-%m-%dT%H:%M:%S.%f)', 'time_rel(sec)', and 'velocity(m/s)'.
@@ -44,7 +44,7 @@ def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_m
     on_off = np.array(trigger_onset(cft, threshold_on, threshold_off))
 
     dictionary_matrices = {}
-    array_matrices = []
+
     # Create and plot data windows for each detected anomaly
     for start, end in on_off:
         """
@@ -78,7 +78,8 @@ def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_m
                     velocity_index = int((velocity - global_min) / y_step)
                     # Set the corresponding element in the array to 1
                     data_window[i][velocity_index] = 1
-        dictionary_matrices[start] = data_window
+
+        dictionary_matrices[(csv_file_path.split("/")[-1].strip(".csv"), start)] = data_window
     return dictionary_matrices
 # Example usage with a CSV file path (replace with your file path)
 csv_file_path = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.csv'  # Replace this with your CSV file path
