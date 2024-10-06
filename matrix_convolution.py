@@ -1,3 +1,4 @@
+import main
 
 
 def matrix_convolution(matrix, max_pooling=True, convolution_size=2, step=1):
@@ -24,3 +25,5 @@ def matrix_to_vector(matrix):
         for element in row:
             vector.append(element)
     return vector
+
+
