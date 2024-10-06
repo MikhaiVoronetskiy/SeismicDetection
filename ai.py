@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
@@ -18,14 +20,16 @@ from sklearn.impute import SimpleImputer
 
 import joblib
 
+import getXandY
+
+
 def main_ai(X, y):
 
     def preprocess_data(X,y, replacement_dict):
         X = np.array(X)
+        y = [replacement_dict[i] for i in y]
         y = np.array(y)
 
-        replace_value = np.vectorize(lambda x: replacement_dict.get(x, x))
-        y = replace_value(y).astype(int)
 
         return X, y
 
@@ -108,3 +112,16 @@ def main_ai(X, y):
         except Exception as e:
             print(f"\nError with {name}: {str(e)}")
 
+if __name__ == "__main__":
+    filenames = os.listdir(os.getcwd())
+    xs = []
+    ys = []
+    for filename_index in range(len(filenames)):
+        filename = filenames[filename_index]
+        if filename_index > 8:
+            break
+        if filename.endswith('.pkl') and ('size_5' in filename) and ('step_4' in filename):
+            x, y = getXandY.get_x_and_y_from_pickle(filename)
+            xs.extend(x)
+            ys.extend(y)
+    main_ai(xs, ys)

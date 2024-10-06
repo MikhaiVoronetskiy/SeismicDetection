@@ -105,3 +105,4 @@ def get_x_from_pickle(file_path):
 
 
 #compile_x(size=5, step=4, compilation_size=2)
+
