@@ -8,26 +8,25 @@ import csv
 
 def find_seismic_events(path_to_csv_file):
     x = {}
-    type_dict = {
-        [1, 0, 0, 0]: "shallow_mq",
-        [0, 1, 0, 0]: "impact_mq",
-        [0, 0, 1, 0]: "deep_mq",
-        [0, 0, 0, 1]: "noise"
-
+    replacement_dict = {
+        "shallow_mq": [1, 0, 0, 0],
+        "impact_mq": [0, 1, 0, 0],
+        "deep_mq": [0, 0, 1, 0],
+        "noise": [0, 0, 0, 1]
     }
-    res_file = "result_catalog.csv"
-    filenames = os.listdir(os.getcwd())
-    for i in filenames:
-        if (i.split(".")[-1] =="csv") and (i[:5] == "test"):
-            x.update(getXandY.get_x(i))
+    dict_of_time_and_vectors =getXandY.get_x(directory=path_to_csv_file)
+
     pipline = joblib.load('model.joblib') #insert model name
-    y_res = pipline.predict(x.values)
-    for j in range(len(y_res)):
-        if y_res[j] == 0:
-            continue
-        typename = type_dict[y_res[j]] # name of type
-        time = list(x.keys())[j]
-        
+    for time in dict_of_time_and_vectors:
+        x = dict_of_time_and_vectors[time]
+        y_res = pipline.predict(x)
+        for i in replacement_dict:
+            if y_res[i] == y_res:
+                if i == "noise":
+                    continue
+                print(i, time)
+
+
     #if not noise print type and time
 
 
@@ -40,3 +39,6 @@ def teach_model_and_save():
     getXandY.compile_x_y(directory=directory) #this can take a lot of time
     ai.main_ai(x, y)
     #save model
+
+
+find_seismic_events("space_apps_2024_seismic_detection/data/lunar/test/data/S12_GradeB/xa.s12.00.mhz.1969-12-16HR00_evid00006.csv")
