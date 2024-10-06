@@ -36,6 +36,7 @@ def getXandY(filenames, size=2, step=1):
 
 def get_x(size=2, step=1, directory='space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'):
     filenames = os.listdir(directory)
+    dict_x = {}
     x = []
     for filename_index in range(len(filenames)):
         filename = filenames[filename_index]
@@ -55,6 +56,8 @@ def get_x(size=2, step=1, directory='space_apps_2024_seismic_detection/data/luna
                 gc.collect()
                 x_element = matrix_convolution.matrix_to_vector(matrix_convolution.matrix_convolution(new_matrix, step=step, convolution_size=size))
                 x.append(x_element)
+                dict_x[anomaly[0]] = x_element
+    return dict_x
 
 def compile_x(directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA', size=5, step=4, compilation_size=2):
     compilation_size *=2 # because we have two types of files
