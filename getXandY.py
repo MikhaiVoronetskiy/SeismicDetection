@@ -5,11 +5,10 @@ import find_evidence
 import main
 import matrix_convolution
 
-def getXandY(size=2, step=1):
+def getXandY(filenames, size=2, step=1):
     x = []
     y = []
     directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'
-    filenames = os.listdir(directory)
     for filename_index in range(len(filenames)):
         filename = filenames[filename_index]
         print(filename_index / len(filenames) * 100, '%' )
@@ -33,10 +32,20 @@ def getXandY(size=2, step=1):
 
 
 
-def compile_x_y(size=2, step=1):
-    x, y = getXandY(size, step)
-    dict = {'x': x, 'y': y}
-    with open(f'size_{size}_step_{step}.pkl', 'wb') as f:
-        pickle.dump(dict, f)
+def compile_x_y(size=2, step=1, compilation_size=4):
+    directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'
+    compilation_size *=2 # because we have two types of files
+    filenames = os.listdir(directory)
+    filenames_part = []
+    part = 0
+    while len(filenames) > 0:
+        part += 1
+        for i in range(compilation_size):
+            if len(filenames) > 0:
+                filenames_part.append(filenames.pop())
+        x, y = getXandY(filenames_part, size, step)
+        dict = {'x': x, 'y': y}
+        with open(f'size_{size}_step_{step}_part_{part}.pkl', 'wb') as f:
+            pickle.dump(dict, f)
 
-
+compile_x_y()
