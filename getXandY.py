@@ -56,8 +56,7 @@ def get_x(size=2, step=1, directory='space_apps_2024_seismic_detection/data/luna
                 x_element = matrix_convolution.matrix_to_vector(matrix_convolution.matrix_convolution(new_matrix, step=step, convolution_size=size))
                 x.append(x_element)
 
-def compile_x(size=5, step=4, compilation_size=2):
-    directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'
+def compile_x(directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA', size=5, step=4, compilation_size=2):
     compilation_size *=2 # because we have two types of files
     filenames = os.listdir(directory)
     part = 0
@@ -66,10 +65,6 @@ def compile_x(size=5, step=4, compilation_size=2):
         y = 0
         filenames_part = []
         part += 1
-        #if part <= 5:
-         #   continue
-        #if part > 6:
-       #     break
         for i in range(compilation_size):
             if len(filenames) > 0:
                 filenames_part.append(filenames.pop())
@@ -86,11 +81,6 @@ def compile_x_y(directory='space_apps_2024_seismic_detection/data/lunar/training
         x = 0
         y = 0
         filenames_part = []
-        #part += 1
-        #if part <= 5:
-         #   continue
-        #if part > 6:
-       #     break
         for i in range(compilation_size):
             if len(filenames) > 0:
                 filenames_part.append(filenames.pop())

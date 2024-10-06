@@ -4,7 +4,7 @@ import getXandY
 
 
 def find_seismic_events(path_to_csv_file):
-    x = getXandY.get_x()
+    x = getXandY.get_x(path_to_csv_file)
     #load model
     #run xs through model
     #if not noise print type and time
