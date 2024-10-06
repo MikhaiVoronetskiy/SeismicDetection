@@ -14,6 +14,6 @@ def find_evidence(filename, time, range_detection=2000):
             catalog_time = times[i]
             if abs(catalog_time - time) < range_detection:
                 return types[i]
-    return "no evidence"
+    return "noise"
 
 
