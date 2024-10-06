@@ -6,7 +6,7 @@ import main
 import matrix_convolution
 import gc
 
-def getXandY(filenames, size=2, step=1):
+def getXandY(filenames, size=5, step=4):
     x = []
     y = []
     directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'
@@ -34,7 +34,7 @@ def getXandY(filenames, size=2, step=1):
     return x, y
 
 
-def get_x(size=2, step=1, directory='space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'):
+def get_x(size=5, step=4, directory='space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'):
     filenames = os.listdir(directory)
     dict_x = {}
     x = []
