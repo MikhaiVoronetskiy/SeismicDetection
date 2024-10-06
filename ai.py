@@ -16,6 +16,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, confu
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.impute import SimpleImputer
 
+import joblib
+
 def main_ai(X, y):
 
     def preprocess_data(X,y, replacement_dict):
@@ -101,6 +103,7 @@ def main_ai(X, y):
             print(f"\n{name}:")
             print(f"Dataset - Accuracy: {accuracy:.3f}, Precision: {precision:.3f}, Specificity: {specificity}")
             print(f"Cross-validation mean accuracy (Dataset 1): {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})")
+            joblib.dump(model, f'{name:}.joblib')
 
         except Exception as e:
             print(f"\nError with {name}: {str(e)}")
