@@ -10,7 +10,7 @@ def getXandY(size=2, step=1):
     y = []
     directory = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA'
     filenames = os.listdir(directory)
-    for filename_index in range(1):
+    for filename_index in range(len(filenames)):
         filename = filenames[filename_index]
         print(filename_index / len(filenames) * 100, '%' )
         if filename.endswith('.csv'):
