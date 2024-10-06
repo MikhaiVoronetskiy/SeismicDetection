@@ -43,6 +43,41 @@ def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_m
     # Detect triggers
     on_off = np.array(trigger_onset(cft, threshold_on, threshold_off))
 
+    '''
+        Plot the seismic waveform, STA/LTA characteristic function, and detections.
+        :param times: Time array.
+        :param data: Seismic data array.
+        :param detections: Detected on and off times (start and end points of events).
+        :param sta_lta_cft: STA/LTA characteristic function.
+        :param threshold_on: On trigger threshold.
+        :param threshold_off: Off trigger threshold.
+        
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 8))
+
+    # Plot seismic trace
+    ax1.plot(times, velocities, label='Seismic Waveform')
+    for det in on_off:
+        ax1.axvline(times[det[0]], color='red', linestyle='--',
+                    label='Event Start' if det[0] == on_off[0][0] else "")
+    ax1.set_xlabel('Time (s)')
+    ax1.set_ylabel('Velocity (m/s)')
+    ax1.set_title('Seismic Waveform with Detected Events')
+    ax1.legend()
+    ax1.grid()
+
+    # Plot STA/LTA characteristic function
+    ax2.plot(times[:len(cft)], cft, label='STA/LTA Ratio')
+    ax2.axhline(threshold_on, color='green', linestyle='--', label='Trigger On Threshold')
+    ax2.axhline(threshold_off, color='orange', linestyle='--', label='Trigger Off Threshold')
+    ax2.set_xlabel('Time (s)')
+    ax2.set_ylabel('STA/LTA Ratio')
+    ax2.set_title('STA/LTA Characteristic Function')
+    ax2.legend()
+    ax2.grid()
+
+    plt.tight_layout()
+    plt.show()'''
+
     dictionary_matrices = {}
 
     # Create and plot data windows for each detected anomaly
@@ -79,10 +114,11 @@ def detect_anomalies(csv_file_path, global_min=-1.4962862873198858e-07, global_m
                     # Set the corresponding element in the array to 1
                     data_window[i][velocity_index] = 1
 
-        dictionary_matrices[(csv_file_path.split("/")[-1].strip(".csv"), start)] = data_window
+        dictionary_matrices[(csv_file_path.split("/")[-1].strip(".csv"), times[start])] = data_window
     return dictionary_matrices
 # Example usage with a CSV file path (replace with your file path)
-csv_file_path = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1971-10-18HR00_evid00043.csv'  # Replace this with your CSV file path
+csv_file_path = 'space_apps_2024_seismic_detection/data/lunar/training/data/S12_GradeA/xa.s12.00.mhz.1970-03-25HR00_evid00003.csv'  # Replace this with your CSV file path
 detection_df = detect_anomalies(csv_file_path)
+print(detection_df)
 
 
