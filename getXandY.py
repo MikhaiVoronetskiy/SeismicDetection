@@ -18,7 +18,7 @@ def getXandY():
             anomalies = main.detect_anomalies(file_path)
             print("Anomalies: ")
             for anomaly in anomalies:
-                y_element = find_evidence.find_evidence(filename, anomaly)
+                y_element = find_evidence.find_evidence(anomaly[0], anomaly[1])
                 print("find_evidence: ")
                 x_element = matrix_convolution.matrix_to_vector(matrix_convolution.matrix_convolution(anomalies[anomaly]))
                 print("matrix_convolution: ")
