@@ -4,9 +4,14 @@ import getXandY
 
 
 def find_seismic_events(path_to_csv_file):
-    x = getXandY.get_x(path_to_csv_file)
-    #load model
-    #run xs through model
+    x = []
+    filenames = os.listdir(os.getcwd())
+    for i in filenames:
+        if (i.split(".")[-1] =="csv") and i[:5] == "test"):
+            x.extend(getXandY.get_x_from_pickle(i))
+    pipline = joblib.load('model.joblib') #insert model name
+    y_res = pipline.predict(x)
+    
     #if not noise print type and time
 
 
