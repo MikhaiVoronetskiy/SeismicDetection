@@ -9,10 +9,10 @@ import csv
 def find_seismic_events(path_to_csv_file):
     x = {}
     type_dict = {
-        1: "shallow_mq",
-        2: "impact_mq",
-        3: "deep_mq",
-        0: "noise"
+        [1, 0, 0, 0]: "shallow_mq",
+        [0, 1, 0, 0]: "impact_mq",
+        [0, 0, 1, 0]: "deep_mq",
+        [0, 0, 0, 1]: "noise"
 
     }
     res_file = "result_catalog.csv"

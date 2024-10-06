@@ -31,10 +31,10 @@ def main_ai(X, y):
 
 
     replacement_dict = {
-        "shallow_mq": 1,
-        "impact_mq": 2,
-        "deep_mq": 3,
-        "noise": 0
+        "shallow_mq": [1, 0, 0, 0],
+        "impact_mq": [0, 1, 0, 0],
+        "deep_mq": [0, 0, 1, 0],
+        "noise": [0, 0, 0, 1]
 
     }
 
