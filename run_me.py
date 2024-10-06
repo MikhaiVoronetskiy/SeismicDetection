@@ -1,5 +1,8 @@
+import joblib
 import pandas as pd
 import os
+
+import ai
 import getXandY
 import csv
 
@@ -13,10 +16,9 @@ def find_seismic_events(path_to_csv_file):
 
     }
     res_file = "result_catalog.csv"
-    with 
     filenames = os.listdir(os.getcwd())
     for i in filenames:
-        if (i.split(".")[-1] =="csv") and i[:5] == "test"):
+        if (i.split(".")[-1] =="csv") and (i[:5] == "test"):
             x.update(getXandY.get_x(i))
     pipline = joblib.load('model.joblib') #insert model name
     y_res = pipline.predict(x.values)
