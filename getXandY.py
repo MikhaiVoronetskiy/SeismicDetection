@@ -90,4 +90,15 @@ def compile_x_y(directory='space_apps_2024_seismic_detection/data/lunar/training
             pickle.dump(dict, f)
 
 
-compile_x(size=5, step=4, compilation_size=2)
+def get_x_and_y_from_pickle(file_path):
+    with open(file_path, 'rb') as f:
+        dict = pickle.load(f)
+    return dict['x'], dict['y']
+
+def get_x_from_pickle(file_path):
+    with open(file_path, 'rb') as f:
+        dict = pickle.load(f)
+    return dict['x']
+
+
+#compile_x(size=5, step=4, compilation_size=2)
